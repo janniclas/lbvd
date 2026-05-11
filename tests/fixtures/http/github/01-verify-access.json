@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/janniclas/lbvd-fixtures",
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "full_name": "janniclas/lbvd-fixtures",
+      "permissions": {
+        "push": true,
+        "pull": true,
+        "admin": false
+      }
+    },
+    "headers": {
+      "content-type": "application/json; charset=utf-8"
+    }
+  }
+}

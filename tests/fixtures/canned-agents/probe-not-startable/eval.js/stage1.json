@@ -1,0 +1,13 @@
+{
+  "finding": {
+    "schema_version": 1,
+    "fingerprint": "abcdef987654",
+    "status": "vulnerability",
+    "target_file": "eval.js",
+    "category": "code_injection_eval",
+    "severity_self_rated": "high",
+    "location": { "start_line": 1, "end_line": 1 },
+    "narrative": "Direct user input passed to eval().",
+    "stage1_token_usage": { "input": 10, "output": 10 }
+  }
+}

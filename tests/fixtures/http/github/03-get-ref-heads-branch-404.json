@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/janniclas/lbvd-fixtures/git/ref/heads/lbvd%2Fexploit%2Fc0ffeec0ffee",
+    "body": null
+  },
+  "response": {
+    "status": 404,
+    "body": {
+      "message": "Not Found",
+      "documentation_url": "https://docs.github.com/rest"
+    },
+    "headers": {
+      "content-type": "application/json; charset=utf-8"
+    }
+  }
+}

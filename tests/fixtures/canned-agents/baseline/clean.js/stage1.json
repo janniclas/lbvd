@@ -1,0 +1,11 @@
+{
+  "finding": {
+    "schema_version": 1,
+    "fingerprint": "c3cccccccccc",
+    "status": "no_finding",
+    "target_file": "clean.js",
+    "category": "audit_pass",
+    "no_finding_reason": "No vulnerable patterns detected; only pure utility functions.",
+    "stage1_token_usage": { "input": 600, "output": 80 }
+  }
+}

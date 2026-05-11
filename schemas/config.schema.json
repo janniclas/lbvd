@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://lbvd.local/schemas/config.schema.json",
+  "title": "ResolvedConfig",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": 1 },
+    "concurrency": { "type": "integer", "minimum": 1 },
+    "scan": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "scope": { "type": "string", "enum": ["hint_only", "hint+verify", "repo_wide"] }
+      }
+    },
+    "budgets": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "stage1_per_finding_seconds": { "type": "integer", "minimum": 1 },
+        "stage2_per_finding_seconds": { "type": "integer", "minimum": 1 },
+        "run_seconds": { "type": "integer", "minimum": 1 },
+        "app_probe_seconds": { "type": "integer", "minimum": 1 },
+        "app_mutex_timeout_seconds": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "blacklist": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "disabled_builtins": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "lockfiles",
+              "vendored",
+              "build_outputs",
+              "minified",
+              "binary_assets",
+              "generated_code",
+              "oversized",
+              "config_files"
+            ]
+          }
+        },
+        "patterns": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "vcs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "provider": { "type": "string", "enum": ["github", "gitlab"] },
+        "repo": { "type": "string" },
+        "default_branch": { "type": "string" },
+        "source_token_env": { "type": "string" },
+        "exploit_target_repo": { "type": "string" },
+        "exploit_target_token_env": { "type": "string" }
+      }
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": { "type": "string", "enum": ["vcs", "local"] },
+        "local_dir": { "type": "string" }
+      }
+    },
+    "preflight": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled_on_substrate": {
+          "type": "string",
+          "enum": ["web-sandbox", "diy-cloud", "none"]
+        },
+        "max_targets": { "type": "integer", "minimum": 1 },
+        "max_tree_bytes": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "runner": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "type": "string", "enum": ["sdk", "fixture"] },
+        "sdk": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "model": { "type": "string" }
+          }
+        }
+      }
+    },
+    "auth": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": { "type": "string", "enum": ["api_key", "subscription"] }
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/repos/janniclas/lbvd-fixtures/git/blobs",
+    "body": {
+      "content": "IyBMTE0tYmFzZWQgVnVsbmVyYWJpbGl0eSBEZXRlY3RvciBmaW5kaW5nCgpEZXRlcm1pbmlzdGljIHJlY29yZGluZyBmaXh0dXJlLgo=",
+      "encoding": "base64"
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "sha": "0000000000000000000000000000000000000b11"
+    },
+    "headers": {
+      "content-type": "application/json; charset=utf-8"
+    }
+  }
+}

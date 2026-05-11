@@ -1,0 +1,13 @@
+{
+  "name": "probe-target-example",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Tiny startable Node HTTP server used for end-to-end verification of lbvd's FR-17 application startup probe.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

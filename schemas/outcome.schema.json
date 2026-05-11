@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://lbvd.local/schemas/outcome.schema.json",
+  "title": "Outcome",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "fingerprint",
+    "tier",
+    "tier_claim",
+    "confidence",
+    "exploit_artifact_path",
+    "test_artifact_path",
+    "execution_record",
+    "infra_requirements",
+    "downgrade_reason",
+    "stage2_token_usage",
+    "stage2_wall_seconds"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "fingerprint": { "type": "string", "pattern": "^[0-9a-f]{12}$" },
+    "tier": { "type": "integer", "enum": [1, 2, 3] },
+    "tier_claim": { "type": "integer", "enum": [1, 2, 3] },
+    "confidence": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "exploit_artifact_path": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[^/.][^/]*(/[^/.][^/]*)*$"
+        }
+      ]
+    },
+    "test_artifact_path": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[^/.][^/]*(/[^/.][^/]*)*$"
+        }
+      ]
+    },
+    "execution_record": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["exit_code", "captured_output", "ran_at"],
+          "properties": {
+            "exit_code": { "type": "integer" },
+            "captured_output": { "type": "string" },
+            "ran_at": { "type": "string", "minLength": 1 }
+          }
+        }
+      ]
+    },
+    "infra_requirements": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["needed", "attempted", "runner_environment"],
+          "properties": {
+            "needed": { "type": "array", "items": { "type": "string" } },
+            "attempted": { "type": "array", "items": { "type": "string" } },
+            "runner_environment": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["os", "arch"],
+              "properties": {
+                "os": { "type": "string" },
+                "arch": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "exploit_targets_application": { "type": ["boolean", "null"] },
+    "downgrade_reason": { "type": ["string", "null"] },
+    "stage2_token_usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["input", "output"],
+      "properties": {
+        "input": { "type": "integer", "minimum": 0 },
+        "output": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "stage2_wall_seconds": { "type": "number", "minimum": 0 }
+  }
+}

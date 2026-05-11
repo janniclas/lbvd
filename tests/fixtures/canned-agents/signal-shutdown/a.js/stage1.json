@@ -1,0 +1,13 @@
+{
+  "finding": {
+    "schema_version": 1,
+    "fingerprint": "a1aaaaaaaaaa",
+    "status": "vulnerability",
+    "target_file": "a.js",
+    "category": "code_injection",
+    "severity_self_rated": "medium",
+    "location": { "start_line": 1, "end_line": 1 },
+    "narrative": "Direct eval usage.",
+    "stage1_token_usage": { "input": 100, "output": 50 }
+  }
+}

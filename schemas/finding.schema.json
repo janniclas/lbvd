@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://lbvd.local/schemas/finding.schema.json",
+  "title": "Finding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "fingerprint", "status", "target_file", "category", "stage1_token_usage"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "fingerprint": { "type": "string", "pattern": "^[0-9a-f]{12}$" },
+    "status": { "type": "string", "enum": ["vulnerability", "no_finding"] },
+    "target_file": { "type": "string", "minLength": 1 },
+    "category": { "type": "string", "minLength": 1 },
+    "severity_self_rated": { "type": "string", "enum": ["low", "medium", "high"] },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start_line", "end_line"],
+      "properties": {
+        "start_line": { "type": "integer", "minimum": 0 },
+        "end_line": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "narrative": { "type": "string", "minLength": 1 },
+    "no_finding_reason": { "type": "string", "minLength": 1 },
+    "stage1_token_usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["input", "output"],
+      "properties": {
+        "input": { "type": "integer", "minimum": 0 },
+        "output": { "type": "integer", "minimum": 0 }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "vulnerability" } } },
+      "then": { "required": ["severity_self_rated", "location", "narrative"] }
+    },
+    {
+      "if": { "properties": { "status": { "const": "no_finding" } } },
+      "then": { "required": ["no_finding_reason"] }
+    }
+  ]
+}

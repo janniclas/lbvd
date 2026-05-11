@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/repos/janniclas/lbvd-fixtures/git/trees",
+    "body": {
+      "base_tree": "0000000000000000000000000000000000000b01",
+      "tree": [
+        {
+          "path": "exploit.sh",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "0000000000000000000000000000000000000b10"
+        },
+        {
+          "path": "README.md",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "0000000000000000000000000000000000000b11"
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "sha": "0000000000000000000000000000000000000b20"
+    },
+    "headers": {
+      "content-type": "application/json; charset=utf-8"
+    }
+  }
+}

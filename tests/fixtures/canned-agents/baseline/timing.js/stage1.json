@@ -1,0 +1,13 @@
+{
+  "finding": {
+    "schema_version": 1,
+    "fingerprint": "d2bbbbbbbbbb",
+    "status": "vulnerability",
+    "target_file": "timing.js",
+    "category": "timing_leak",
+    "severity_self_rated": "medium",
+    "location": { "start_line": 10, "end_line": 20 },
+    "narrative": "Variable-time string comparison enables timing side-channel.",
+    "stage1_token_usage": { "input": 800, "output": 200 }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "startable": false,
+  "start_commands": [],
+  "stop_commands": [],
+  "port": null,
+  "health_check_url": null,
+  "startup_timeout_seconds": 0,
+  "pre_conditions": [],
+  "probe_narrative": "fixture: no startup artefacts found in repo",
+  "tried": false,
+  "successfully_started": false,
+  "failure_reason": "no startup artefacts found",
+  "probe_token_usage": { "input": 0, "output": 0 },
+  "probe_wall_seconds": 0.0
+}

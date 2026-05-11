@@ -1,0 +1,19 @@
+{
+  "hang_ms": 60000,
+  "probe": {
+    "schema_version": 1,
+    "startable": true,
+    "start_commands": ["echo would-have-started"],
+    "stop_commands": ["echo would-have-stopped"],
+    "port": 3000,
+    "health_check_url": null,
+    "startup_timeout_seconds": 10,
+    "pre_conditions": [],
+    "probe_narrative": "fixture: would-be startable but hangs to trigger budget kill",
+    "tried": true,
+    "successfully_started": true,
+    "failure_reason": null,
+    "probe_token_usage": { "input": 0, "output": 0 },
+    "probe_wall_seconds": 0
+  }
+}

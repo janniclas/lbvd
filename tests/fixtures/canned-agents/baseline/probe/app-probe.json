@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "startable": true,
+  "start_commands": ["node server.js"],
+  "stop_commands": ["pkill -f server.js"],
+  "port": 3000,
+  "health_check_url": "http://localhost:3000/health",
+  "startup_timeout_seconds": 10,
+  "pre_conditions": [],
+  "probe_narrative": "fixture: baseline scenario startable app",
+  "tried": true,
+  "successfully_started": true,
+  "failure_reason": null,
+  "probe_token_usage": { "input": 0, "output": 0 },
+  "probe_wall_seconds": 0.1
+}

@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://lbvd.local/schemas/app-probe.schema.json",
+  "title": "AppProbe",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "startable",
+    "start_commands",
+    "stop_commands",
+    "port",
+    "health_check_url",
+    "startup_timeout_seconds",
+    "pre_conditions",
+    "probe_narrative",
+    "tried",
+    "successfully_started",
+    "failure_reason",
+    "probe_token_usage",
+    "probe_wall_seconds"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "startable": { "type": "boolean" },
+    "start_commands": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "stop_commands": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "port": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "integer", "minimum": 1, "maximum": 65535 }
+      ]
+    },
+    "health_check_url": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "minLength": 1 }
+      ]
+    },
+    "startup_timeout_seconds": { "type": "integer", "minimum": 0 },
+    "pre_conditions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "probe_narrative": { "type": "string", "maxLength": 4096 },
+    "tried": { "type": "boolean" },
+    "successfully_started": { "type": "boolean" },
+    "failure_reason": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "maxLength": 4096 }
+      ]
+    },
+    "probe_token_usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["input", "output"],
+      "properties": {
+        "input": { "type": "integer", "minimum": 0 },
+        "output": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "probe_wall_seconds": { "type": "number", "minimum": 0 }
+  }
+}

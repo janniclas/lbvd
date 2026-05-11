@@ -1,0 +1,13 @@
+{
+  "finding": {
+    "schema_version": 1,
+    "fingerprint": "b1bbbbbbbbbb",
+    "status": "vulnerability",
+    "target_file": "b.js",
+    "category": "sql_injection",
+    "severity_self_rated": "medium",
+    "location": { "start_line": 1, "end_line": 1 },
+    "narrative": "Unsanitised query parameter.",
+    "stage1_token_usage": { "input": 100, "output": 50 }
+  }
+}

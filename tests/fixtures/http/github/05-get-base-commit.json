@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/janniclas/lbvd-fixtures/git/commits/0000000000000000000000000000000000000a01",
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "sha": "0000000000000000000000000000000000000a01",
+      "tree": {
+        "sha": "0000000000000000000000000000000000000b01"
+      },
+      "parents": []
+    },
+    "headers": {
+      "content-type": "application/json; charset=utf-8"
+    }
+  }
+}

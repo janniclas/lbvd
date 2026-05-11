@@ -1,0 +1,11 @@
+output:
+  mode: local
+
+auth:
+  mode: subscription
+
+runner:
+  kind: sdk
+
+budgets:
+  stage1_per_finding_seconds: 240

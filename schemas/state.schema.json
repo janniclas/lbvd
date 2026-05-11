@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://lbvd.local/schemas/state.schema.json",
+  "title": "RunState",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "config_snapshot",
+    "started_at",
+    "ended_at",
+    "targets",
+    "terminations"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "run_id": { "type": "string", "pattern": "^[0-9]{8}T[0-9]{6}Z-[0-9a-f]{8}$" },
+    "config_snapshot": {
+      "type": "object",
+      "description": "Snapshot of ResolvedConfig from src/config/defaults.ts. Loose `type: object` is intentional pending schemas/config.schema.json (Phase 2 follow-up); upstream loaders enforce `additionalProperties` via src/config/schema.ts."
+    },
+    "started_at": { "type": "string", "minLength": 1 },
+    "ended_at": { "type": ["string", "null"] },
+    "targets": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "state",
+          "fingerprint",
+          "branch_url",
+          "issue_url",
+          "infra_issue_url",
+          "tracking_issue_url",
+          "error",
+          "stage1_started_at",
+          "stage2_started_at",
+          "completed_at"
+        ],
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "stage1_running",
+              "stage2_running",
+              "stage2_done",
+              "reporting_branch",
+              "reporting_issue",
+              "reporting_infra",
+              "reporting_tracking",
+              "done",
+              "failed",
+              "no_finding",
+              "skipped_dup"
+            ]
+          },
+          "fingerprint": {
+            "oneOf": [
+              { "type": "null" },
+              { "type": "string", "pattern": "^[0-9a-f]{12}$" }
+            ]
+          },
+          "branch_url": { "$ref": "#/definitions/urlOrNull" },
+          "issue_url": { "$ref": "#/definitions/urlOrNull" },
+          "infra_issue_url": { "$ref": "#/definitions/urlOrNull" },
+          "tracking_issue_url": { "$ref": "#/definitions/urlOrNull" },
+          "error": { "type": ["string", "null"] },
+          "stage1_started_at": { "type": ["string", "null"] },
+          "stage2_started_at": { "type": ["string", "null"] },
+          "completed_at": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "terminations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "at", "reason"],
+        "properties": {
+          "kind": { "type": "string", "enum": ["run_budget", "user_interrupt"] },
+          "at": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string" },
+          "signal": { "type": "string", "enum": ["SIGINT", "SIGTERM"] }
+        }
+      }
+    },
+    "app_probe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "startable", "completed_at"],
+      "properties": {
+        "state": { "type": "string", "enum": ["pending", "running", "done"] },
+        "startable": { "type": ["boolean", "null"] },
+        "completed_at": { "type": ["string", "null"] }
+      }
+    }
+  },
+  "definitions": {
+    "urlOrNull": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^(https?|file)://" }
+      ]
+    }
+  }
+}

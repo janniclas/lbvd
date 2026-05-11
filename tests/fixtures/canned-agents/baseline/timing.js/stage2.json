@@ -1,0 +1,17 @@
+{
+  "outcome": {
+    "schema_version": 1,
+    "fingerprint": "d2bbbbbbbbbb",
+    "tier": 3,
+    "tier_claim": 3,
+    "confidence": 0,
+    "exploit_artifact_path": null,
+    "test_artifact_path": null,
+    "execution_record": null,
+    "infra_requirements": null,
+    "exploit_targets_application": null,
+    "downgrade_reason": "no_executable_evidence",
+    "stage2_token_usage": { "input": 5000, "output": 1000 },
+    "stage2_wall_seconds": 30.1
+  }
+}

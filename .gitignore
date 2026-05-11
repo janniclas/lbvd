@@ -1,0 +1,7 @@
+node_modules/
+.lbvd/
+dist/
+*.tsbuildinfo
+.DS_Store
+.claude/agent-memory/
+.claude/settings.local.json

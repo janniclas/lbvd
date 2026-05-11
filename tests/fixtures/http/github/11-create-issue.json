@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/repos/janniclas/lbvd-fixtures/issues",
+    "body": {
+      "title": "[LBVD] code_injection_eval in eval.js",
+      "body": "# code_injection_eval\n\nRecorder fixture for LBVD contract tests. Auto-closed after record runs.\n\n<!-- lbvd:fp:c0ffeec0ffee -->",
+      "labels": [
+        "lbvd",
+        "priority:high",
+        "tier:1"
+      ]
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "html_url": "https://github.com/janniclas/lbvd-fixtures/issues/42",
+      "number": 42,
+      "state": "open"
+    },
+    "headers": {
+      "content-type": "application/json; charset=utf-8"
+    }
+  }
+}

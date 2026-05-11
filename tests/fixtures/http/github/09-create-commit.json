@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/repos/janniclas/lbvd-fixtures/git/commits",
+    "body": {
+      "message": "lbvd: code_injection_eval evidence",
+      "tree": "0000000000000000000000000000000000000b20",
+      "parents": [
+        "0000000000000000000000000000000000000a01"
+      ]
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "sha": "0000000000000000000000000000000000000a02"
+    },
+    "headers": {
+      "content-type": "application/json; charset=utf-8"
+    }
+  }
+}

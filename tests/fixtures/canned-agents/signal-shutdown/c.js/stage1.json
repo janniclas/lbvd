@@ -1,0 +1,13 @@
+{
+  "finding": {
+    "schema_version": 1,
+    "fingerprint": "c1cccccccccc",
+    "status": "vulnerability",
+    "target_file": "c.js",
+    "category": "xss",
+    "severity_self_rated": "medium",
+    "location": { "start_line": 1, "end_line": 1 },
+    "narrative": "Reflected XSS via query string.",
+    "stage1_token_usage": { "input": 100, "output": 50 }
+  }
+}
