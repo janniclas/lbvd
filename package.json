@@ -34,7 +34,7 @@
     "synth-http": "tsx ./scripts/synth-http.ts"
   },
   "dependencies": {
-    "@anthropic-ai/claude-agent-sdk": "0.2.139",
+    "@anthropic-ai/claude-agent-sdk": "0.2.140",
     "ajv": "8.20.0",
     "commander": "14.0.3",
     "ignore": "7.0.5",
