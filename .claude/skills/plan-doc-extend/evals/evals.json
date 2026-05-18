@@ -1,0 +1,26 @@
+{
+  "skill_name": "plan-doc-extend",
+  "evals": [
+    {
+      "id": 1,
+      "name": "feature-add-json-export",
+      "prompt": "I want to add a new feature: operators should be able to export an assessment as a JSON bundle (everything except file bytes — just metadata, answers, evidence rows, mapping snapshots) so they can hand it to an auditor who doesn't have access to the UI. Let's add this. I'm thinking a GET /api/assessments/{id}/export route, returns application/json, no auth on it because the existing /api/* surface is already proxy-restricted. Walk through what we need to do.",
+      "expected_output": "Agent should follow the plan-doc-extend workflow: gate (non-trivial → use), append a new FR to requirements.md, append architecture if a seam is affected (e.g. a new export module or contract), invoke plan-reviewer-architect on requirements + architecture (saving to docs/reviews/), then derive implementation.md with file paths and test inventory, invoke plan-reviewer-architect again on the implementation diff, then apply review feedback. Should explicitly call out the standing rules (append-only, README sync because a new route is added) and pass user's standing preferences (no testcontainers) to the reviewer.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "architecture-only-change",
+      "prompt": "The deep-link content fetcher (FR-16) currently builds its own *http.Client inline. We need to make the fetcher pluggable so the in-process scheduler and tests can both swap it out — tests want a fake that returns canned bytes, prod uses the real one through netguard. No new FR, no new env var, just a seam change. How should we plan this?",
+      "expected_output": "Agent should recognize this as an architecture-only change (no requirements.md edit needed), append an entry to the architecture.md decision log and possibly extend the deep-link section / adapter seam description, invoke plan-reviewer-architect on the architecture diff alone (spec pass), then derive implementation.md updates (the fetcher interface signature, the wiring point in main.go, the fake under server/internal/testutil or similar), invoke plan-reviewer-architect on the implementation diff. Should not invent a new FR. Should still call out netguard chokepoint preservation per CLAUDE.md security rules.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "trivial-typo-should-skip",
+      "prompt": "There's a typo in the auto-link applied toast — it says 'mappng created' instead of 'mapping created'. The string lives in ui/src/components/SelectedArtefactsCard.vue. Fix it.",
+      "expected_output": "Agent should recognize this is a trivial edit (one-line UI string fix) per agent-guide.md §0 and CLAUDE.md plan-docs policy, SKIP the plan-doc workflow entirely, and just edit the file. Should NOT invoke plan-reviewer-architect. Should NOT edit requirements/architecture/implementation. After the edit, the ui-side mandatory verification block (npm run build + npm test) is the only ceremony required.",
+      "files": []
+    }
+  ]
+}

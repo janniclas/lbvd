@@ -1,0 +1,54 @@
+{
+  "skill_name": "plan-implement",
+  "evals": [
+    {
+      "id": 1,
+      "name": "happy-path-fr16-closed-plan",
+      "prompt": "FR-16 went through plan-doc-extend last week — requirements.md, architecture.md, implementation.md are all updated and both plan-review files (spec + impl) closed APPROVE in docs/reviews/. Let's get it coded. Walk me through how you're going to land this feature.",
+      "expected_output": "Agent should: (1) preflight by confirming the plan docs and the two docs/reviews/plan-review-2026-05-13-fr16-{requirements,architecture,implementation}.md files exist and closed APPROVE; (2) describe the implementation phase as following implementation.md's F<N>.x tasks across config → repository → service → handler, with tests at the docs/testing-strategy.md layers the test column points to, while honouring the complexity budget and security rules; (3) plan the side-appropriate mandatory verification block from CLAUDE.md; (4) plan to ALWAYS invoke post-implementation-reviewer, AND invoke security-review because FR-16 touches outbound HTTP / netguard (a CLAUDE.md Security rules item) — both writing to docs/reviews/{review,sec-review}-YYYY-MM-DD-fr16.md, ideally in parallel; (5) describe triage: must-fix findings auto-applied + re-verify, blocking/ESCALATE findings surfaced to operator with proposed options; (6) describe the final phase-6 re-challenge against requirements.md acceptance criteria + architecture.md invariants, and the three outcomes (match / small drift → fix + rerun reviewers if material / spec needs changing → hand back to plan-doc-extend). Should also call out README sync if a user-visible surface changes, and pass the no-testcontainers rule to the reviewers.",
+      "files": [],
+      "assertions": [
+        {"text": "Response performs a preflight check that names the three plan docs AND the two/three plan-review files for FR-16 (mentions docs/reviews/plan-review-2026-05-13-fr16-* by path or by description)"},
+        {"text": "Response describes implementation as following implementation.md's F<N>.x task rows, threading through the config → repository → service → handler layering"},
+        {"text": "Response explicitly references docs/testing-strategy.md (by name or by the §3.x layer terminology) as the source for which test layer each row uses"},
+        {"text": "Response calls out the side-appropriate CLAUDE.md mandatory verification block (gofmt + go build + go test for server; npm run build + npm test for ui)"},
+        {"text": "Response plans to invoke post-implementation-reviewer unconditionally"},
+        {"text": "Response plans to invoke security-review because FR-16 touches outbound HTTP / netguard (a CLAUDE.md Security rules item), and explains the conditional gate rather than treating it as automatic for all changes"},
+        {"text": "Response describes a triage step splitting findings into must-fix (auto-applied) vs blocking/ESCALATE (surfaced to operator)"},
+        {"text": "Response describes the phase-6 re-challenge against requirements.md acceptance criteria + architecture.md invariants and names the three outcomes (match / small drift fixed in place / spec gap → hand back to plan-doc-extend)"},
+        {"text": "Response mentions passing the no-testcontainers standing preference to the reviewer agents"},
+        {"text": "Response calls out README.md sync as part of done if a user-visible surface changes"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "plan-not-closed-redirect",
+      "prompt": "I want to add an in-app toast component that shows live progress while a collect run is happening — fed by SSE from /api/collect/stream or similar. Let's just build it; should only take an hour.",
+      "expected_output": "Agent should recognize this is a non-trivial new feature (new SSE endpoint, new UI component, cross-module: server adds a streaming route, ui adds a store + component) AND that there is no closed plan for it (no FR in requirements.md, no docs/reviews/plan-review-*-toast or similar). Plan-implement should REFUSE to start coding and redirect the operator to plan-doc-extend first, explaining the two-pass review exists exactly to prevent wiring-order / migration bugs from leaking into code. Should NOT begin editing the requirements/architecture/implementation docs itself — that's plan-doc-extend's job.",
+      "files": [],
+      "assertions": [
+        {"text": "Response recognizes this is a non-trivial change (new SSE endpoint + new UI component, crosses server/ and ui/)"},
+        {"text": "Response checks for an existing FR / plan-review files for the toast/SSE feature and confirms none exist"},
+        {"text": "Response REFUSES to start coding the feature directly and explicitly redirects to the plan-doc-extend workflow (or equivalent: writing requirements/architecture/implementation first, with the two-pass plan-reviewer-architect review)"},
+        {"text": "Response does NOT start drafting requirements.md / architecture.md / implementation.md edits itself — that's plan-doc-extend's job, not plan-implement's"},
+        {"text": "Response does NOT begin writing code for the feature"},
+        {"text": "Response explains the rationale for refusing — that bypassing plan-doc-extend would skip the two-pass review and risks wiring-order / migration / behavioural-drift bugs"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "trivial-fix-skip",
+      "prompt": "Tiny one: the admin questions page header says 'Question Catalouge' — should be 'Question Catalogue'. It's in ui/src/views/AdminQuestionsView.vue. Just fix it.",
+      "expected_output": "Agent should recognize this is a trivial UI-string fix per CLAUDE.md plan-doc policy and agent-guide §0, SKIP the plan-implement workflow entirely (no preflight, no reviewer agents, no re-challenge), and just edit the file. After the edit, only the ui-side mandatory verification block (npm run build + npm test) is required. Should NOT invoke post-implementation-reviewer or security-review for a typo fix.",
+      "files": [],
+      "assertions": [
+        {"text": "Response recognizes this as a trivial typo / one-line UI string fix that bypasses the plan-implement / plan-doc-extend workflow"},
+        {"text": "Response does NOT preflight against plan docs (no mention of requirements.md / architecture.md / implementation.md as a gate for a typo)"},
+        {"text": "Response does NOT plan to invoke post-implementation-reviewer for the typo fix"},
+        {"text": "Response does NOT plan to invoke security-review for the typo fix"},
+        {"text": "Response describes the actual edit (Catalouge → Catalogue) in ui/src/views/AdminQuestionsView.vue"},
+        {"text": "Response calls out the ui-side mandatory verification block (npm run build + npm test) as the only ceremony required"}
+      ]
+    }
+  ]
+}
